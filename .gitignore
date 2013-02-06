@@ -1,0 +1,10 @@
+_Store
+/assets
+/protected/runtime
+.buildpath
+.project
+.settings
+
+*.sublime-project
+*.sublime-workspace
+

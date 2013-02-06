@@ -1,0 +1,56 @@
+.tag-col {
+	padding:0 10px;
+}
+
+.tag-idea {
+	.author {
+		float:right;
+	}
+	.avatar {
+		.border-radius(3px);
+		.square(36px);
+	}
+}
+
+.tag-idea-title {
+	display: block;
+}
+
+.tag-idea-stat {
+	color: #999;
+	font-size: 13px;
+}
+
+.tag-idea,.tag-project,.tag-user {
+	overflow: hidden;
+	padding: 10px 0;
+	border-bottom: 1px dashed #ddd;
+	&:last-child{
+		border: none;
+	}
+}
+
+.tag-project {
+	height: 100px;
+	h4 {
+		margin-top: 0;
+	}
+}
+
+.tag-project-icon {
+	float:left;
+	margin-right: 10px;
+	.square(100px);
+}
+
+.tag-project-detail {
+	overflow: hidden;
+}
+
+.tag-user {
+	.avatar {
+		.border-radius(3px);
+		.square(36px);
+		margin-right: 10px;
+	}
+}

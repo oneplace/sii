@@ -1,0 +1,27 @@
+.nav-underline {
+  .clearfix();
+	border-bottom:3px solid #ddd;
+}
+.nav-underline > li {
+  float: left;
+	margin-bottom: -3px;
+}
+
+.nav-underline > li > a {
+  padding: 6px 20px 6px 15px;
+	font-size:16px;
+	color:#777;
+}
+
+// Active state
+.nav-underline > .active > a,
+.nav-underline > .active > a:hover {
+	border-bottom:3px solid @linkColor;
+	color:@linkColor;
+}
+
+.nav-underline > li > a:hover {
+	color:@linkColor;
+	border-bottom:3px solid #aaa;
+	background:none;
+}

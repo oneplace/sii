@@ -1,0 +1,184 @@
+ul.idea-list {
+	list-style:none;
+	margin:0;
+	
+	li {
+		overflow:hidden;
+		padding:12px 10px 8px 8px;
+		border-bottom:1px solid #e7e7e7;
+	}
+	li:last-child {
+		border-bottom:none;
+	}
+	li:nth-child(even) {
+		background:#fafafa;
+	}
+	.idea-title {
+		overflow:hidden;
+		min-height:36px;
+/*		margin:0 15px;*/
+		a {
+			color:#333;
+			display:inline-block;
+			vertical-align: middle;
+			// padding-top:5px;
+		} 
+	}
+	.label a {
+		color: white;
+	}
+	.idea-comments-count {
+		color: #999;
+		font-size: 12px;
+		margin-right: 15px;
+	}
+	.idea-tag {
+		background: #bbb;
+	}
+	.idea-meta {
+		float:right;
+		.info {
+			margin-left: 10px;
+			float:right;
+			text-align: right;
+		}
+	}
+	.author,.date {
+		margin-right:8px;
+		font-size:12px;
+		a { color:#666; }
+	}
+	.date {
+		color:#999
+	}
+	.avatar {
+		float:right;
+		width:36px;
+		height:36px;
+		border-radius:3px;
+	}
+	.vote {
+		float:left;
+		padding:5px 0;
+		margin-right:10px;
+		.btn {
+			font-size:16px;
+			padding:3px 8px;
+			width: 36px;
+		}
+	/*	a:hover ,a.disabled{
+			text-decoration:none;
+			color:#0088cc;
+		}
+		.icon-thumbs-up {
+			background:url(img/thumbs_up.png) no-repeat left top;
+			width:19px;
+			height:17px;
+			margin-right:3px;
+		}*/
+	}
+}
+
+.btn-share-idea {
+	width:190px;
+	margin-bottom:10px;
+}
+
+.main-content {
+	padding:10px 15px;
+	margin-bottom:30px;
+	h1 {
+		margin:5px 0;
+		font-size:22px;
+	}
+}
+
+#idea-comments,#discussion-comments {
+	background:#f5f5f5;
+	border:1px solid #ddd;
+	border-width:1px 0;
+	.form-comment {
+		padding:15px 15px 0;
+		margin-bottom:10px;
+		overflow:hidden;
+		textarea {
+			width:574px;
+		}
+	}
+	ul {
+		margin:0;
+		li {
+			list-style:none;
+			padding:10px 15px;
+			border-top:1px solid #ddd;
+			img {
+				width:36px;
+				height:36px;
+				float:left;
+				margin-right:10px;
+			}
+			.date {
+				color:#999;
+				font-size:13px;
+				padding-left:10px;
+			}
+			.comment-content {
+				margin-left:46px;
+			}
+		}	
+	}
+}
+
+#idea-author {
+	img {
+		width:45px;
+		height:45px;
+		float:left;
+		margin-right:10px;
+	}
+}
+
+.idea-tags {
+	margin-bottom: 10px;
+}
+
+#idea-right {
+	.widget {
+		background:none;
+		border:none;
+		box-shadow:none;
+		margin-bottom:10px;
+		overflow: hidden;
+		h4 {
+			font-size:16px;
+			font-weight:normal;
+			color:#666;
+		}
+		ul {
+			list-style:none;
+			margin:0;
+		}
+		li {
+			.avatar img {
+				width:30px;
+				height:30px;
+				border-radius:3px;
+			}
+		}
+	}
+}
+
+.most-ideas.widget {
+	.avatar-link img{
+		width:28px;
+		height:28px;
+	}
+	.count {
+		float:right;
+		margin-right:3px;
+		padding:2px 5px;
+		background:#ddd;
+		border-radius:3px;
+		color:#333;
+	}
+}

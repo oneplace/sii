@@ -1,0 +1,137 @@
+#conversation-box {
+	width:520px;
+	padding: 5px 0;
+}
+
+.conversation-header {
+	padding: 2px 15px;
+}
+
+.contact-list {
+	padding:0;
+	ul {
+		list-style:none;
+		margin:0;
+	}
+	li {
+		border-bottom:1px solid #eee;
+		a {
+			padding:10px 10px;
+			display:block;
+			text-decoration:none;
+			&:hover {
+				background:#f7f7f7;
+			}
+		}
+		img {
+			float:left;
+			width:40px;
+			height:40px;
+			.border-radius(3px);
+			margin-right:10px;
+		}
+		i {
+			float:right;
+			margin-top: 10px;
+		}
+	}
+	.latest-message {
+		overflow:hidden;
+		max-height:40px;
+		color:#999;
+		font-size:13px;
+	}
+	.contact-name {
+		color:#222;
+	}
+}
+
+.conversation {
+	padding:0;
+	height:343px;
+	background:#fafafa;
+	ul {
+		list-style:none;
+		margin:0;
+	}
+	li {
+		padding:10px;
+		.clearfix();
+		img {
+			float:left;
+			width:40px;
+			height:40px;
+			margin-right:10px;
+			.border-radius(3px);
+		}
+		.date {
+			font-size:12px;
+			color:#ccc;
+			text-align:center;
+		}
+		.message {
+			padding:6px;
+			position:relative;
+			.border-radius(5px);
+			background:#ecf5fb;
+			border:1px solid #e0e0e0;
+			font-size:13px;
+			max-width: 400px;
+			float:left;
+		}
+		.message::before {
+			content: "";
+			position:absolute;
+			border-style: solid;
+			border-width: 5px 5px 5px 0;
+			border-color: transparent #e0e0e0;
+			display: block;
+			top:10px;
+			left:-5px;
+			z-index:10;
+		}
+		.message::after {
+			content: "";
+			position:absolute;
+			border-style: solid;
+			border-width: 4px 4px 4px 0;
+			border-color: transparent #ecf5fb;
+			display: block;
+			left:-4px;
+			top:11px;
+			z-index:11;
+		}
+	}
+	li.self {
+		img {
+			float:right;
+			margin:0 0 0 10px;
+		}
+		.message {
+			float:right;
+		}
+		.message::before {
+			left:auto;
+			right:-5px;
+			border-width: 5px 0 5px 5px;
+		}
+		.message::after {
+			left:auto;
+			right:-4px;
+			border-width: 4px 0 4px 4px;
+		}
+	}
+}
+
+#conversation-message-form {
+	margin:0;
+	padding:10px 10px 0;
+	border-top:1px solid #EEE;
+	textarea {
+		width:484px;
+		margin-bottom: 5px;
+	}
+	button {
+		float:right;
+	}
+}
