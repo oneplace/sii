@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Sii',
+	'theme'=>'bootstrap',
 
 	// preloading 'log' component
 	'preload'=>array('log','bootstrap'),
@@ -16,29 +17,34 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'ext.yii-mail.YiiMailMessage',
+		'ext.eauth.*',
+		'ext.eauth.services.*',
+		'application.modules.rights.*',
+		'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-		/*
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
+		'rights'=>array(
+			'userNameColumn'=>'name',
+			'appLayout' => '//layouts/main',
+			// 'install'=>true,	// Enables the installer.
 		),
-		*/
+		'conversation','notify'
 	),
 
 	// application components
 	'components'=>array(
 		'user'=>array(
+			'class'=>'SWebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-		
+		'bootstrap'=>array(
+			'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+			'coreCss'=>true,
+		),
+
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -74,17 +80,29 @@ return array(
 			'dryRun' => false
 		),
 		
-		// 'db'=>array(
-		// 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		// ),
-		// uncomment the following to use a MySQL database
-		
-		'db'=>array(
-			'connectionString' => 'mysql:host=127.0.0.1;dbname=sii',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '123',
-			'charset' => 'utf8',
+		'db'=>require('db.php'),
+
+		'authManager'=>array(
+			'class'=>'RDbAuthManager',	// Provides support authorization item sorting.
+			'defaultRoles'=>array('Authenticated'),
+			'showErrors'=>true,
+		),
+
+		'eauth'=>array(
+			'class'=>'ext.eauth.EAuth',
+			'popup'=>false,
+			'services'=>array(
+				'sina' => array(
+					'class' => 'SinaOAuthService',
+					'client_id' => '1174339454',
+					'client_secret' => '7381bcd29b5607cf7b43226e93ca33a5',
+				),
+			),
+		),
+
+		'phpThumb'=>array(
+			'class'=>'ext.EPhpThumb.EPhpThumb',
+			//'options'=>array(optional phpThumb specific options are added here)
 		),
 		
 		'errorHandler'=>array(
@@ -105,6 +123,16 @@ return array(
 				),
 				*/
 			),
+		),
+
+		'eventsManager'=>array(
+			'class'=>'application.components.events.SEventsManager',
+			'listeners'=>array(
+			),
+		),
+
+		'event'=>array(
+			'class'=>'application.components.events.EventEmitter',
 		),
 	),
 

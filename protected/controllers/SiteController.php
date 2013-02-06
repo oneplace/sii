@@ -1,6 +1,26 @@
 <?php
+
 class SiteController extends Controller
 {
+	/**
+	 * Declares class-based actions.
+	 */
+	public function actions()
+	{
+		return array(
+			// captcha action renders the CAPTCHA image displayed on the contact page
+			'captcha'=>array(
+				'class'=>'CCaptchaAction',
+				'backColor'=>0xFFFFFF,
+			),
+			// page action renders "static" pages stored under 'protected/views/site/pages'
+			// They can be accessed via: index.php?r=site/page&view=FileName
+			'page'=>array(
+				'class'=>'CViewAction',
+			),
+		);
+	}
+
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -25,50 +45,30 @@ class SiteController extends Controller
 	        	$this->render('error', $error);
 	    }
 	}
-	
-	public function actionRegister()
+
+	public function actionTest()
 	{
-		$model = new RegisterForm;
-		if(isset($_POST['RegisterForm']))
+		echo uniqid(2);
+	}
+
+	/**
+	 * Displays the contact page
+	 */
+	public function actionContact()
+	{
+		$model=new ContactForm;
+		if(isset($_POST['ContactForm']))
 		{
-			$model->attributes = $_POST['RegisterForm'];
+			$model->attributes=$_POST['ContactForm'];
 			if($model->validate())
 			{
-				$user = new User;
-				$user->name = $model->name;
-				$user->email = $model->email;
-				$user->password = $model->password;
-				if($user->save()){
-					Yii::app()->user->setFlash('success', 'You are successfully registered.');
-					$this->sendMail($this->renderPartial('verify_email',array('user'=>$user),true),$user->email);
-				}
-				$model = new RegisterForm;
+				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
+				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
+				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+				$this->refresh();
 			}
 		}
-		$this->render('register',array('model'=>$model));
-	}
-	
-	public function sendMail($body,$to){
-		$message = new YiiMailMessage;
-		$message->setBody($body, 'text/html');
-		$message->subject = 'Activate your AppRunes Developer account';
-		$message->addTo($to);
-		$message->from = Yii::app()->params['adminEmail'];
-		Yii::app()->mail->send($message);
-	}
-	
-	public function actionVerify($id,$code)
-	{
-		$user = User::model()->findByPk($id);
-		if($user && $user->status==0 && $user->verifyKey == $code)
-		{
-			$user->status=1;
-			$user->save();
-			Yii::app()->user->setFlash('success', 'You are successfully activated.');
-		}else{
-			Yii::app()->user->setFlash('warning', 'Invalid Verify URL');
-		}
-		$this->redirect(array('site/login'));
+		$this->render('contact',array('model'=>$model));
 	}
 
 	/**
@@ -77,14 +77,6 @@ class SiteController extends Controller
 	public function actionLogin()
 	{
 		$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
@@ -95,6 +87,45 @@ class SiteController extends Controller
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
+	}
+
+	public function actionConnect()
+	{
+		$service = Yii::app()->request->getQuery('service');
+		if (isset($service)) {
+			$authIdentity = Yii::app()->eauth->getIdentity($service);
+			$authIdentity->redirectUrl = Yii::app()->user->returnUrl;
+			$authIdentity->cancelUrl = $this->createAbsoluteUrl('site/login');
+
+			if ($authIdentity->authenticate()) {
+				$identity = new SUserIdentity($authIdentity);
+				if ($identity->authenticate()) {
+					Yii::app()->user->login($identity,0,true);
+					$authIdentity->redirect(Yii::app()->user->returnUrl);
+				}else {
+					$authIdentity->cancel();
+				}
+			}
+			$this->redirect(array('site/login'));
+		}
+
+		$this->render('login');	
+	}
+
+	public function actionRegister()
+	{
+		$model=new RegisterForm;
+
+		if(isset($_POST['RegisterForm']))
+		{
+			$model->attributes=$_POST['RegisterForm'];
+			if($model->validate()){
+				$model->register();
+				$this->redirect(Yii::app()->user->returnUrl);
+			}		
+		}
+		// display the login form
+		$this->render('register',array('model'=>$model));
 	}
 
 	/**
