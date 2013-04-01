@@ -97,6 +97,11 @@ return array(
 					'client_id' => '1174339454',
 					'client_secret' => '7381bcd29b5607cf7b43226e93ca33a5',
 				),
+				'douban'=>array(
+					'class' => 'DoubanOAuthService',
+					'client_id' => '0eadd2bcc8f5c5322c0978365ae14f96',
+					'client_secret' => '26ec01cac073082d',
+				),
 			),
 		),
 

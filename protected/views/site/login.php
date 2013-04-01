@@ -22,6 +22,10 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	<img src="http://www.sinaimg.cn/blog/developer/wiki/32.png"/>
 	</a>
 	<br><br>
+	<a href="<?php echo $this->createUrl('site/connect',array('service'=>'douban')) ?>">
+	<img src="http://img3.douban.com/pics/douban-icons/login_with_douban_32.png"/>
+	</a>
+	<br><br>
 	<a href="<?php echo '#';//echo Yii::app()->createUrl('site/login',array('service'=>'qq')) ?>">
 		<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_5.png">
 	</a>
